@@ -29,7 +29,7 @@ function AllProducts() {
 
   // FOR PRICE FILTER
 
-  const [price, setPrice] = useState([0, 25000]);
+  const [price, setPrice] = useState([0, 300000]);
 
   // RATINGS
 
