@@ -12,7 +12,7 @@ import {
 
 // METHOD WILL BE CALLED IN PAGES
 
-export const getProducts = (keyword="",currentPage=1,price=[0,25000],category,ratings=0) => async (dispatch) => {
+export const getProducts = (keyword="",currentPage=1,price=[0,300000],category,ratings=0) => async (dispatch) => {
   let responseData;
  
   try {
