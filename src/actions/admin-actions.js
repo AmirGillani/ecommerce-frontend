@@ -75,7 +75,7 @@ export const createProduct = (newProduct) => async (dispatch) => {
     dispatch({ type: ADMIN_CREATE_PRODUCT_REQUEST });
 
     const response = await fetch(
-      "http://localhost:5000/api/products/addproduct",
+      "https://ecommerce-api-two-rust.vercel.app/api/products/addproduct",
       {
         method: "POST",
         body: newProduct,
