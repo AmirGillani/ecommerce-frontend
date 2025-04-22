@@ -26,6 +26,10 @@ import {
 
 import { Rating } from "@material-ui/lab";
 
+import { FaStar } from 'react-icons/fa';
+
+import { useMediaQuery, useTheme } from "@material-ui/core";
+
 //PACKAGE FOR STARS
 
 import ReactStars from "react-rating-stars-component";
@@ -183,6 +187,11 @@ function ProductDetails() {
 
   }
 
+  //AD MEDIA QUERY
+
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const starSize = isMobile ? 20 : 40;
+
   return (
     <Fragment>
       <ErrorModal error={err} onClear={clearError} />
@@ -269,7 +278,9 @@ function ProductDetails() {
 
             <DialogContent className="submitDialog">
 
-              <Rating  size="large" value={ratings} onChange={(e)=>setRatings(e.target.value)}/>
+              <Rating style={{ fontSize: isMobile ? '18px' : '32px' }}  value={ratings} onChange={(e)=>setRatings(e.target.value)}/>
+
+              
 
               <textarea
                 className="submitDialogTextArea"
