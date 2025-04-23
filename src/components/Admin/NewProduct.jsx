@@ -33,7 +33,7 @@ const NewProduct = () => {
   const {error,success}= useSelector((state)=>state.newProduct);
 
   const categories = [
-    "Laptop",
+    "Laptops",
     "Footwear",
     "Bottom",
     "Tops",

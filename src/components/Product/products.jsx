@@ -20,7 +20,7 @@ import ErrorModal from "../error-modal/ErrorModal";
 import "./Products.css";
 
 // ALL CATEGORIES
-const categories = ["Laptop", "Toys", "Shoes", "Mobile"];
+const categories = ["Laptops", "Toys", "Shoes", "SmartPhones"];
 
 function AllProducts() {
   // ERROR MODAL HANDLER
