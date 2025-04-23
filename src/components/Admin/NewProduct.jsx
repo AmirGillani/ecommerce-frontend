@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/MetaData";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
@@ -10,27 +10,26 @@ import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
-import {createProduct} from "../../actions/admin-actions";
+import { createProduct } from "../../actions/admin-actions";
 
 import "./newProduct.css";
 
 const NewProduct = () => {
-
   const dispatch = useDispatch();
 
   const alert = useAlert();
 
   const navigate = useNavigate();
 
-  const [name,setName]= useState("");
-  const [price,setPrice]= useState("");
-  const [description,setDescription]= useState("");
-  const [category,setCategory]= useState("");
-  const [stock,setStock]= useState(0);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
-  const {error,success}= useSelector((state)=>state.newProduct);
+  const { error, success } = useSelector((state) => state.newProduct);
 
   const categories = [
     "Laptops",
@@ -43,10 +42,7 @@ const NewProduct = () => {
     "SmartPhones",
   ];
 
-  function createProductImagesChange(e)
-  {
-
-    
+  function createProductImagesChange(e) {
     // CONVERT FILES TO ARRAY
 
     const files = Array.from(e.target.files);
@@ -58,31 +54,27 @@ const NewProduct = () => {
 
     // REPEAT FOR EACH FILE
 
-    files.forEach((file) => {
+    const file = requestAnimationFrame.files[0];
 
-      if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith("image/")) return;
 
-      // READ FILE
+    // READ FILE
 
-      const reader = new FileReader();
+    const reader = new FileReader();
 
-      reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-      // PROCESS FILES
+    // PROCESS FILES
 
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      })
-
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagesPreview((old) => [...old, reader.result]);
+        setImages((old) => [...old, reader.result]);
+      }
+    };
   }
 
-  function submitHandler(e)
-  {
+  function submitHandler(e) {
     e.preventDefault();
 
     const myForm = new FormData();
@@ -93,26 +85,21 @@ const NewProduct = () => {
     myForm.append("category", category);
     myForm.append("stock", stock);
 
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
-
+    myForm.append("images", images);
 
     dispatch(createProduct(myForm));
   }
 
-  useEffect(()=>{
-    if(error)
-    {
-      alert.error(`Error ${error}`)
+  useEffect(() => {
+    if (error) {
+      alert.error(`Error ${error}`);
     }
-    if(success)
-    {
+    if (success) {
       alert.success("Product Added Successfully !!");
 
       navigate("/admin/dashboard");
     }
-    },[error,success])
+  }, [error, success]);
 
   return (
     <Fragment>
@@ -129,11 +116,27 @@ const NewProduct = () => {
 
             <div>
               <SpellcheckIcon />
-              <input type="text" placeholder="Product Name" value={name} onChange={(e)=>{setName(e.target.value)}} required />
+              <input
+                type="text"
+                placeholder="Product Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                required
+              />
             </div>
             <div>
               <AttachMoneyIcon />
-              <input type="number" placeholder="Price" value={price} onChange={(e)=>{setPrice(e.target.value)}} required />
+              <input
+                type="number"
+                placeholder="Price"
+                value={price}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+                required
+              />
             </div>
 
             <div>
@@ -143,13 +146,21 @@ const NewProduct = () => {
                 placeholder="Product Description"
                 cols="30"
                 rows="1"
-                value={description} onChange={(e)=>{setDescription(e.target.value)}}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
               ></textarea>
             </div>
 
             <div>
               <AccountTreeIcon />
-              <select value={category} onChange={(e)=>{setCategory(e.target.value)}}>
+              <select
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
                 <option value="">Choose Category</option>
 
                 {categories.map((cate) => (
@@ -162,19 +173,31 @@ const NewProduct = () => {
 
             <div>
               <StorageIcon />
-              <input type="number" placeholder="Stock" required value={stock} onChange={(e)=>{setStock(e.target.value)}} />
+              <input
+                type="number"
+                placeholder="Stock"
+                required
+                value={stock}
+                onChange={(e) => {
+                  setStock(e.target.value);
+                }}
+              />
             </div>
 
             <div id="createProductFormFile">
-              <input type="file" name="avatar" accept="image/*" multiple onChange={createProductImagesChange} />
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                multiple
+                onChange={createProductImagesChange}
+              />
             </div>
 
             <div id="createProductFormImage">
-
-            {imagesPreview.map((image, index) => (
+              {imagesPreview.map((image, index) => (
                 <img key={index} src={image} alt="Product Preview" />
               ))}
-              
             </div>
 
             <Button id="createProductBtn" type="submit">
