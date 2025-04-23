@@ -43,42 +43,24 @@ const NewProduct = () => {
     "SmartPhones",
   ];
 
-  function createProductImagesChange(e)
-  {
-
-    
-    // CONVERT FILES TO ARRAY
-
-    const files = Array.from(e.target.files);
-
-    // EMPTY THSE TO BEFORE NEW FILES SELECTION
-
+  function createProductImagesChange(e) {
+    const file = e.target.files[0]; // ✅ Only first file
+  
+    if (!file || !file.type.startsWith("image/")) return;
+  
+    // Clear previous
     setImages([]);
     setImagesPreview([]);
-
-    // REPEAT FOR EACH FILE
-
-    files.forEach((file) => {
-
-      if (!file.type.startsWith('image/')) return;
-
-      // READ FILE
-
-      const reader = new FileReader();
-
-      reader.readAsDataURL(file);
-
-      // PROCESS FILES
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      })
-
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+  
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagesPreview([reader.result]); // ✅ Single image
+        setImages([reader.result]);        // ✅ Single image
+      }
+    };
   }
 
   function submitHandler(e)
@@ -166,7 +148,7 @@ const NewProduct = () => {
             </div>
 
             <div id="createProductFormFile">
-              <input type="file" name="avatar" accept="image/*" multiple onChange={createProductImagesChange} />
+              <input type="file" name="avatar" accept="image/*" multiple={false} onChange={createProductImagesChange} />
             </div>
 
             <div id="createProductFormImage">
