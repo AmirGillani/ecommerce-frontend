@@ -34,7 +34,7 @@ const UpdateProduct = () => {
   });
 
   const categories = [
-    "Laptop",
+    "Laptops",
     "Footwear",
     "Bottom",
     "Tops",
