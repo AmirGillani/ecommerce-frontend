@@ -189,7 +189,7 @@ const UpdateProduct = () => {
                 name="avatar"
                 accept="image/*"
                 onChange={updateProductImagesChange}
-                multiple
+                multiple={false}
               />
             </div>
 
