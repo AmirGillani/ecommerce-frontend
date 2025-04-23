@@ -100,11 +100,9 @@ const UpdateProduct = () => {
     myForm.append("stock", Stock);
     
     //SEND IMAGES TO BODY OBJECT ONLY IF USER HAS CHANGED IMAGES
-    if(images.length !== 0){
-      images.forEach((image) => {
-        myForm.append("images", image);
-      });
-    }
+    images.forEach((image) => {
+      myForm.append("images", image);
+    });
     
     dispatch(updateProduct(productId,myForm));
 
