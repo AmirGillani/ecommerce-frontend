@@ -69,24 +69,25 @@ const UpdateProduct = () => {
   }, [productDetails,error]);
 
   const updateProductImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-
+    const file = e.target.files[0]; // ✅ Only the first selected file
+  
+    if (!file || !file.type.startsWith("image/")) return;
+  
+    // Clear previous images
     setImages([]);
     setImagesPreview([]);
     setOldImages([]);
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    });
+  
+    const reader = new FileReader();
+  
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagesPreview([reader.result]); // ✅ Single image
+        setImages([reader.result]);        // ✅ Single image
+      }
+    };
+  
+    reader.readAsDataURL(file);
   };
 
   const updateProductSubmitHandler = (e) => {
