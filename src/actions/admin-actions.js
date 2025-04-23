@@ -79,7 +79,6 @@ export const createProduct = (newProduct) => async (dispatch) => {
       {
         method: "POST",
         body: newProduct,
-        headers:{"Content-Type":"application.json"},
         credentials: "include",
       }
     );

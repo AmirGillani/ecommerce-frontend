@@ -97,16 +97,8 @@ const NewProduct = () => {
       myForm.append("images", image);
     });
 
-    const newProduct={
-      name:name,
-      price:price,
-      description:description,
-      category:category,
-      stock:stock,
-      images:images
-    }
 
-    dispatch(createProduct(newProduct));
+    dispatch(createProduct(myForm));
   }
 
   useEffect(()=>{
