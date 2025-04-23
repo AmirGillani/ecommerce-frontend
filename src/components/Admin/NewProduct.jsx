@@ -45,6 +45,8 @@ const NewProduct = () => {
 
   function createProductImagesChange(e)
   {
+
+    
     // CONVERT FILES TO ARRAY
 
     const files = Array.from(e.target.files);
@@ -57,6 +59,8 @@ const NewProduct = () => {
     // REPEAT FOR EACH FILE
 
     files.forEach((file) => {
+
+      if (!file.type.startsWith('image/')) return;
 
       // READ FILE
 
@@ -93,7 +97,16 @@ const NewProduct = () => {
       myForm.append("images", image);
     });
 
-    dispatch(createProduct(myForm));
+    const newProduct={
+      name:name,
+      price:price,
+      description:description,
+      category:category,
+      stock:stock,
+      images:images
+    }
+
+    dispatch(createProduct(newProduct));
   }
 
   useEffect(()=>{
