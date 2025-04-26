@@ -3,7 +3,7 @@ import {ADD_TO_CART,REMOVE_CART_ITEM, SAVE_SHIPPING_INFO} from "../constants/pro
 // Add to Cart
 export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
 
-    const response = await fetch(`http://localhost:5000/api/products/${id}`);
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/products/${id}`);
   
     const responseDAta = await response.json();
 
@@ -30,7 +30,7 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
 
 export const removeFromCart = (id) => async (dispatch,getState) => {
 
-  const response = await fetch(`http://localhost:5000/api/products/${id}`);
+  const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/products/${id}`);
 
   const responseDAta = await response.json();
 

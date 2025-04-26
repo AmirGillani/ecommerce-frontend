@@ -16,7 +16,7 @@ export const placeOrder = (order) => async (dispatch) => {
   dispatch({ type: CREATE_ORDER_REQUEST });
 
   try {
-    const response = await fetch(`http://localhost:5000/api/orders/create`, {
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/orders/create`, {
       method: "POST",
       body: JSON.stringify(order),
       headers: { "Content-Type": "application/json" },
@@ -45,7 +45,7 @@ export const myOrders = () => async (dispatch) => {
   dispatch({ type: MY_ORDERS_REQUEST });
 
   try {
-    const response = await fetch(`http://localhost:5000/api/orders/me`, {
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/orders/me`, {
       credentials: "include"
     });
 
@@ -72,7 +72,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   dispatch({ type: ORDER_DETAILS_REQUEST });
 
   try {
-    const response = await fetch(`http://localhost:5000/api/orders/${id}`, {
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/orders/${id}`, {
       credentials: "include"
     });
 

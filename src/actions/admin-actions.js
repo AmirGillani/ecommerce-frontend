@@ -45,7 +45,7 @@ export const getProducts = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_ALL_PRODUCT_REQUEST });
 
-    const response = await fetch("http://localhost:5000/api/products/admin/", {
+    const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/products/admin/", {
       credentials: "include",
     });
 
@@ -75,7 +75,7 @@ export const createProduct = (newProduct) => async (dispatch) => {
     dispatch({ type: ADMIN_CREATE_PRODUCT_REQUEST });
 
     const response = await fetch(
-      "http://localhost:5000/api/products/addproduct",
+      "https://ecommerce-api-two-rust.vercel.app/api/products/addproduct",
       {
         method: "POST",
         body: newProduct,
@@ -108,7 +108,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_DELETE_PRODUCT_REQUEST });
 
-    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/products/${id}`, {
       method: "DELETE",
 
       credentials: "include",
@@ -139,7 +139,7 @@ export const updateProduct = (id, data) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_EDIT_PRODUCT_REQUEST });
 
-    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/products/${id}`, {
       method: "PATCH",
 
       body: data,
@@ -171,7 +171,7 @@ export const allOrders = () => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/orders/admin/orders`,
+      `https://ecommerce-api-two-rust.vercel.app/api/orders/admin/orders`,
       {
         credentials: "include",
       }
@@ -200,7 +200,7 @@ export const deleteOrder = (id) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/orders/admin/${id}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/orders/admin/${id}`,
       {
         method:"DELETE",
         credentials: "include",
@@ -230,7 +230,7 @@ export const updateOrder= (id,myForm) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/orders/admin/${id}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/orders/admin/${id}`,
       {
         method:"PATCH",
         body:JSON.stringify(myForm),
@@ -264,7 +264,7 @@ export const getAllUsers= () => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/users/admin/allusers`,
+      `https://ecommerce-api-two-rust.vercel.app/api/users/admin/allusers`,
       {
         credentials: "include",
       }
@@ -293,7 +293,7 @@ export const deleteUser= (id) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/users/admin/${id}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/users/admin/${id}`,
       {
         method:"DELETE",
         credentials: "include",
@@ -323,7 +323,7 @@ export const changeRole= (id,myForm) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/users/admin/${id}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/users/admin/${id}`,
       {
         method:"PATCH",
         body:JSON.stringify(myForm),
@@ -355,7 +355,7 @@ export const getReviews= (id) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/products/reviews?productid=${id}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/products/reviews?productid=${id}`,
       { 
         credentials: "include",
       }
@@ -384,7 +384,7 @@ export const deleteReviews= (productid,reviewid) => async (dispatch) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/products/reviews?productid=${productid}&reviewid=${reviewid}`,
+      `https://ecommerce-api-two-rust.vercel.app/api/products/reviews?productid=${productid}&reviewid=${reviewid}`,
       { 
         method:"DELETE",
         credentials: "include",

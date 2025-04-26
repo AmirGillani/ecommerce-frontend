@@ -21,11 +21,11 @@ export const getProducts = (keyword="",currentPage=1,price=[0,300000],category,r
     // THESE METHODS WILL BE CALLED BY USING USE DISPATCHER THATS WHY
     // WE HAVE TO CALL ASYNC FUNCTION PASS DISPATCH
 
-    let url = `http://localhost:5000/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings=${ratings}`;
+    let url = `https://ecommerce-api-two-rust.vercel.app/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings=${ratings}`;
 
     if(category)
     {
-       url = `http://localhost:5000/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings=${ratings}`;
+       url = `https://ecommerce-api-two-rust.vercel.app/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings=${ratings}`;
     }
     
     const response = await fetch(url);
@@ -56,7 +56,7 @@ export function getProductDetails(id) {
       // THESE METHODS WILL BE CALLED BY USING USE DISPATCHER THATS WHY
       // WE HAVE TO CALL ASYNC FUNCTION PASS DISPATCH
 
-      const response = await fetch(`http://localhost:5000/api/products/${id}`);
+      const response = await fetch(`https://ecommerce-api-two-rust.vercel.app/api/products/${id}`);
 
       responseData = await response.json();
 
@@ -88,7 +88,7 @@ export function addReview(newReview) {
       // THESE METHODS WILL BE CALLED BY USING USE DISPATCHER THATS WHY
       // WE HAVE TO CALL ASYNC FUNCTION PASS DISPATCH
 
-      const response = await fetch("http://localhost:5000/api/products/review",{method:"PATCH",body:JSON.stringify(newReview),headers:{"Content-Type":"application/json"},credentials:"include"});
+      const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/products/review",{method:"PATCH",body:JSON.stringify(newReview),headers:{"Content-Type":"application/json"},credentials:"include"});
 
       responseData = await response.json();
 
