@@ -44,24 +44,27 @@ const NewProduct = () => {
   ];
 
   function createProductImagesChange(e) {
-    const file = e.target.files[0]; // ✅ Only first file
+    const files = Array.from(e.target.files); // ✅ Convert FileList to array
   
-    if (!file || !file.type.startsWith("image/")) return;
-  
-    // Clear previous
+    // Clear previous images
     setImages([]);
     setImagesPreview([]);
   
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    files.forEach((file) => {
+      if (!file || !file.type.startsWith("image/")) return;
   
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImagesPreview([reader.result]); // ✅ Single image
-        setImages([reader.result]);        // ✅ Single image
-      }
-    };
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagesPreview((old) => [...old, reader.result]);
+          setImages((old) => [...old, reader.result]);
+        }
+      };
+    });
   }
+  
 
   function submitHandler(e)
   {
@@ -148,7 +151,7 @@ const NewProduct = () => {
             </div>
 
             <div id="createProductFormFile">
-              <input type="file" name="avatar" accept="image/*" multiple={false} onChange={createProductImagesChange} />
+              <input type="file" name="avatar" accept="image/*" multiple={true} onChange={createProductImagesChange} />
             </div>
 
             <div id="createProductFormImage">

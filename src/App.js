@@ -53,7 +53,7 @@ function App() {
 
   async function getStripeApiKey() {
     const response = await fetch(
-      "https://ecommerce-api-two-rust.vercel.app/api/payment/stripeapikey",
+      "http://localhost:5000/api/payment/stripeapikey",
       { credentials: "include" }
     );
 
@@ -73,7 +73,7 @@ function App() {
 
 
 
-      getStripeApiKey();
+     if(isAuthenticated) getStripeApiKey();
     
   }, [isAuthenticated]);
 

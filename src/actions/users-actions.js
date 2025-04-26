@@ -33,7 +33,7 @@ export const loginUser = (user) => async (dispatch) => {
 
     // INCLUDE CREDENTIALS FOR ACCESSING COOKIES
 
-    const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/users/login", {
+    const response = await fetch("http://localhost:5000/api/users/login", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
@@ -64,7 +64,7 @@ export const signupUser = (myForm) => async (dispatch) => {
   try {
     dispatch({ type: SIGNUP_REQUEST });
 
-    const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/users/signup", {
+    const response = await fetch("http://localhost:5000/api/users/signup", {
       method: "POST",
       body: myForm,
       credentials: "include",
@@ -92,7 +92,7 @@ export const logoutUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOGOUT_REQUEST });
 
-    const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/users/logout", {
+    const response = await fetch("http://localhost:5000/api/users/logout", {
       credentials: "include",
     });
 
@@ -116,7 +116,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const response = await fetch("https://ecommerce-api-two-rust.vercel.app/api/users/me", {
+    const response = await fetch("http://localhost:5000/api/users/me", {
       credentials: "include",
     });
 
@@ -143,7 +143,7 @@ export const updateUser = (formData) => async (dispatch) => {
     dispatch({ type: UPDATE_USER_REQUEST });
 
     const response = await fetch(
-      "https://ecommerce-api-two-rust.vercel.app/api/users/me/updateprofile",
+      "http://localhost:5000/api/users/me/updateprofile",
       { method: "PATCH", body: formData, credentials: "include" }
     );
 
@@ -170,7 +170,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
     const response = await fetch(
-      "https://ecommerce-api-two-rust.vercel.app/api/users/password/updatepassword",
+      "http://localhost:5000/api/users/password/updatepassword",
       {
         method: "PATCH",
         body: JSON.stringify(passwords),
@@ -206,7 +206,7 @@ export const forgetPassword = (email) => async (dispatch) => {
     const user = { email: email };
 
     const response = await fetch(
-      "https://ecommerce-api-two-rust.vercel.app/api/users/forgetpassword",
+      "http://localhost:5000/api/users/forgetpassword",
       {
         method: "POST",
         body: JSON.stringify(user),
@@ -239,7 +239,7 @@ export const resetPassword = (passwords, token) => async (dispatch) => {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const response = await fetch(
-      `https://ecommerce-api-two-rust.vercel.app/api/users/password/reset/${token}`,
+      `http://localhost:5000/api/users/password/reset/${token}`,
       {
         method: "PATCH",
         body: JSON.stringify(passwords),

@@ -17,149 +17,93 @@ import "./Authentication.css";
 import { Link } from "react-router-dom";
 
 function Authentication() {
-
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
   const location = useLocation();
-
-  // ERROR MODAL HANDLER
-
+  
+  // Error handling state
   const [err, setError] = useState(false);
-
+  
+  // User and login data states
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [avatar, setAvatar] = useState("/Profile.png");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState({ name: "", email: "", password: "" });
 
   const { name, email, password } = user;
 
-  // FETCH DATA FROM STORE
-
+  // Store states
   const { loading, error, isAuthenticated, currentUser } = useSelector(
-    (state) => {
-      return state.users;
-    }
+    (state) => state.users
   );
-
- 
 
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
 
+  // Switch tabs for login/register
   function switchTab(e, tab) {
-    // IF USER CLICK LOGIN THEN SHOW LOGIN FORM
     if (tab === "login") {
       switcherTab.current.classList.add("shiftToNeutral");
       switcherTab.current.classList.remove("shiftToRight");
-
       registerTab.current.classList.remove("shiftToNeutralForm");
       loginTab.current.classList.remove("shiftToLeft");
-    }
-
-    // IF USER CLICK SIGNUP THEN SHOW SIGNUP FORM
-
-    if (tab === "register") {
+    } else if (tab === "register") {
       switcherTab.current.classList.add("shiftToRight");
       switcherTab.current.classList.remove("shiftToNeutral");
-
       registerTab.current.classList.add("shiftToNeutralForm");
       loginTab.current.classList.add("shiftToLeft");
     }
   }
 
   useEffect(() => {
-
-    // IF USER IS AUTHENTICATED THEN REDIRECT HIM TO SHIPPING PAGEIF HE 
-    // HAS PRESSED CHECKOUT BUTTON
-    
     if (isAuthenticated) {
-
-      localStorage.setItem("current user",JSON.stringify({ loading, error, isAuthenticated, currentUser }));
-      
+      localStorage.setItem("current user", JSON.stringify({ loading, error, isAuthenticated, currentUser }));
       const redirect = location.search ? location.search.split("=")[1] : "account";
-
-      navigate("/"+redirect);
+      navigate("/" + redirect);
     }
   }, [isAuthenticated]);
 
-  // LOGIN SUBMIT
-
+  // Login form submission
   function loginSubmit(e) {
     e.preventDefault();
     const user = { email: loginEmail, password: loginPassword };
     dispatch(loginUser(user));
   }
 
-  // SIGNUP SUBMIT
-
+  // Signup form submission
   function signupSubmit(e) {
     e.preventDefault();
-
     const myForm = new FormData();
-
     myForm.append("name", name);
     myForm.append("email", email);
     myForm.append("password", password);
-    myForm.append("avatar", avatar);
+    myForm.append("avatar", avatar);  // Ensure avatar is a file object
     dispatch(signupUser(myForm));
   }
 
-  // WHENEVER USER WRITE SOMETHING IN SIGNUP FORM THIS WILL BE TRIGGERED
-
+  // Handle input changes in signup form
   function registerDataChange(e) {
     if (e.target.name === "avatar") {
-      // FILE READER API WILL READ FILE AND CAN CONVERT IT INTO URL OR TEXT ETC
-
-      // const fileReader = new FileReader();
-
-      // FILE USER HAS SELECTED IS IN BINARY FORMAT USE READ AS URL
-      // TO CONVERT IT INTO HUMAN READABLE URL
-
-      // fileReader.readAsDataURL(e.target.files[0]);
-
-      // ONCE FILE IS READED IT SHOULD ALWAYS USE ON LOAD FUNCTION
-      // WHICH WILL GIVE US .RESULT ATTRIBUTE WHICH WE CAN USE
-
-      // fileReader.onload = () => {
-
-      //     // SELECTED FILE URL WILL BE PRESENT IN RESULT
-
-      //     setAvatarPreview(fileReader.result);
-      //     setAvatar(fileReader.result);
-      // };
-
       const reader = new FileReader();
-
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
-          setAvatar(reader.result);
+          setAvatar(e.target.files[0]);  // Set file object here
         }
       };
-
       reader.readAsDataURL(e.target.files[0]);
     } else {
-      // PUT CURRENTLY WRITTEN VALUE IN USER OBJECT
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   }
 
-  // SET ERROR STATE DEPENDING UPON STORE ERROR STATE
-
+  // Handle errors
   useEffect(() => {
     setError(error);
   }, [error]);
-
-  // CLEAR ERROR
 
   function clearError() {
     setError(false);
@@ -175,30 +119,16 @@ function Authentication() {
           <MetaData title="Login" />
           <div className="LoginSignUpContainer">
             <div className="LoginSignUpBox">
-              {/* TOGGLE BUTTONS */}
-
+              {/* Toggle buttons */}
               <div>
                 <div className="login_signUp_toggle">
-                  <p
-                    onClick={(e) => {
-                      switchTab(e, "login");
-                    }}
-                  >
-                    LOGIN
-                  </p>
-                  <p
-                    onClick={(e) => {
-                      switchTab(e, "register");
-                    }}
-                  >
-                    SIGNUP
-                  </p>
+                  <p onClick={(e) => { switchTab(e, "login"); }}>LOGIN</p>
+                  <p onClick={(e) => { switchTab(e, "register"); }}>SIGNUP</p>
                 </div>
-                {/* THIS BUTTON IS LINKED WITH SWITCHER TAB */}
                 <button ref={switcherTab}></button>
               </div>
 
-              {/* LOGIN FORM */}
+              {/* Login form */}
               <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                 <div className="loginEmail">
                   <MailOutlineIcon />
@@ -207,9 +137,7 @@ function Authentication() {
                     placeholder="Email"
                     required
                     value={loginEmail}
-                    onChange={(e) => {
-                      setLoginEmail(e.target.value);
-                    }}
+                    onChange={(e) => { setLoginEmail(e.target.value); }}
                   />
                 </div>
                 <div className="loginPassword">
@@ -219,16 +147,14 @@ function Authentication() {
                     placeholder="Password"
                     required
                     value={loginPassword}
-                    onChange={(e) => {
-                      setLoginPassword(e.target.value);
-                    }}
+                    onChange={(e) => { setLoginPassword(e.target.value); }}
                   />
                 </div>
                 <Link to="/password/forgetpassword">Forget Password</Link>
                 <input type="submit" value="login" className="loginBtn" />
               </form>
 
-              {/* SIGNUP FORM */}
+              {/* Signup form */}
               <form
                 className="signUpForm"
                 ref={registerTab}
@@ -278,7 +204,7 @@ function Authentication() {
                   />
                 </div>
                 <Link to="/password/forgetpassword">Forget Password</Link>
-                <input type="submit" value="login" className="loginBtn" />
+                <input type="submit" value="Sign Up" className="loginBtn" />
               </form>
             </div>
           </div>
@@ -289,3 +215,4 @@ function Authentication() {
 }
 
 export default Authentication;
+

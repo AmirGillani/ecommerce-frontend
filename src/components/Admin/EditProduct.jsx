@@ -69,26 +69,32 @@ const UpdateProduct = () => {
   }, [productDetails,error]);
 
   const updateProductImagesChange = (e) => {
-    const file = e.target.files[0]; // ✅ Only the first selected file
-  
-    if (!file || !file.type.startsWith("image/")) return;
-  
-    // Clear previous images
-    setImages([]);
-    setImagesPreview([]);
-    setOldImages([]);
-  
+  const files = Array.from(e.target.files);
+
+  if (!files.length) return;
+
+  setImages([]);           // Raw File objects
+  setImagesPreview([]);    // Base64 for preview
+  setOldImages([]);
+
+  files.forEach((file) => {
+    if (!file.type.startsWith("image/")) return;
+
+    // ✅ Save the raw File object
+    setImages((old) => [...old, file]);
+
+    // ✅ Generate preview (base64) only for showing image
     const reader = new FileReader();
-  
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setImagesPreview([reader.result]); // ✅ Single image
-        setImages([reader.result]);        // ✅ Single image
+        setImagesPreview((old) => [...old, reader.result]);
       }
     };
-  
     reader.readAsDataURL(file);
-  };
+  });
+};
+
+  
 
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -187,7 +193,7 @@ const UpdateProduct = () => {
                 name="avatar"
                 accept="image/*"
                 onChange={updateProductImagesChange}
-                multiple={false}
+                multiple={true}
               />
             </div>
 

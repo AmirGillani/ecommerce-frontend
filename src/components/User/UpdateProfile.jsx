@@ -14,6 +14,7 @@ function UpdateProfile()
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("./profile.png");
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -44,11 +45,15 @@ function UpdateProfile()
   }, [currentUser,error,isUpdated]);
 
   function updateProfileDataChange(e) {
+
+    setAvatar(e.target.files[0]);
+
     const reader = new FileReader();
 
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatarPreview(reader.result);
+        
       }
     };
 
@@ -62,8 +67,9 @@ function UpdateProfile()
 
     myForm.append("name", name);
     myForm.append("email", email);
-    myForm.append("avatar", avatarPreview);
+    myForm.append("avatar", avatar);
     dispatch(updateUser(myForm));
+    
   }
 
   return (
